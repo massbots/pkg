@@ -53,5 +53,5 @@ func (api *API) doRequest(req *http.Request, v interface{}) error {
 		return err
 	}
 
-	return json.Unmarshal(data, &v)
+	return json.Unmarshal(data, v)
 }
