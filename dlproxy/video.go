@@ -39,7 +39,7 @@ type VideoFormat struct {
 }
 
 // Video fetches detailed information about the video.
-func (api *API) Video(id string) (video *Video, err error) {
+func (api *API) Video(id string) (*Video, error) {
 	url := fmt.Sprint(api.url, "/dl/video?id=", id)
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -47,5 +47,6 @@ func (api *API) Video(id string) (video *Video, err error) {
 		return nil, err
 	}
 
-	return video, api.doRequest(req, video)
+	var video Video
+	return &video, api.doRequest(req, &video)
 }

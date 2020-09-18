@@ -21,7 +21,7 @@ type PlaylistEntry struct {
 }
 
 // Playlist fetches detailed information about the playlist.
-func (api *API) Playlist(id string) (playlist *Playlist, err error) {
+func (api *API) Playlist(id string) (*Playlist, error) {
 	url := fmt.Sprint(api.url, "/dl/playlist?id=", id)
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -29,5 +29,6 @@ func (api *API) Playlist(id string) (playlist *Playlist, err error) {
 		return nil, err
 	}
 
-	return playlist, api.doRequest(req, playlist)
+	var playlist Playlist
+	return &playlist, api.doRequest(req, &playlist)
 }

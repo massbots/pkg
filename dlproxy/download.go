@@ -83,7 +83,7 @@ func (api *API) PollDownload(id string) (r *DownloadResult, err error) {
 	return
 }
 
-func (api *API) pollDownload(id string) (result *DownloadResult, err error) {
+func (api *API) pollDownload(id string) (*DownloadResult, error) {
 	url := fmt.Sprint(api.url, "/dl/download?id=", id)
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -91,5 +91,6 @@ func (api *API) pollDownload(id string) (result *DownloadResult, err error) {
 		return nil, err
 	}
 
-	return result, api.doRequest(req, result)
+	var result DownloadResult
+	return &result, api.doRequest(req, &result)
 }
