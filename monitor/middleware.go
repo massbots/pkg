@@ -38,6 +38,11 @@ func newUpdate(c tele.Context) (Update, bool) {
 		return Update{}, false
 	}
 
+	msg := c.Message()
+	if msg != nil && msg.IsService() {
+		return Update{}, false
+	}
+
 	text := c.Text()
 	if text == "" {
 		text = c.Data()
@@ -55,7 +60,7 @@ func newUpdate(c tele.Context) (Update, bool) {
 		update.ChatID = chat.ID
 	}
 
-	if msg := c.Message(); msg != nil {
+	if msg != nil {
 		update.MessageID = strconv.Itoa(msg.ID)
 		update.Media = updateMedia(msg)
 		update.IsForwarded = msg.IsForwarded()
@@ -67,8 +72,10 @@ func newUpdate(c tele.Context) (Update, bool) {
 	}
 
 	if clb := c.Callback(); clb != nil {
-		update.MessageID = clb.MessageID
 		update.IsInline = clb.IsInline()
+		if update.IsInline {
+			update.MessageID = clb.MessageID
+		}
 	}
 
 	if ir := c.InlineResult(); ir != nil {
