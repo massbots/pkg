@@ -1,6 +1,7 @@
 package monitor
 
 import (
+	"bytes"
 	"encoding/json"
 	"time"
 
@@ -32,9 +33,21 @@ func (m *Monitor) log(c tele.Context, level, msg string, payload ...M) {
 	if c != nil {
 		record.UpdateID = uint(c.Update().ID)
 	}
+
+	var data []byte
 	if len(payload) > 0 {
-		data, _ := json.Marshal(payload[0])
+		data, _ = json.Marshal(payload[0])
 		record.Payload = string(data)
+	}
+
+	if m.logger != nil {
+		v := []interface{}{msg}
+		if data != nil {
+			var buf bytes.Buffer
+			json.Indent(&buf, data, "", "  ")
+			v = append(v, buf.String())
+		}
+		m.logger.Println(v...)
 	}
 
 	m.bus <- record

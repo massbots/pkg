@@ -21,16 +21,20 @@ type (
 
 		// TickPeriod is the interval flushing will fire at.
 		TickPeriod time.Duration
+
+		// Logger is used on custom logging. As an output pass stdout, a file, or any other writer.
+		Logger *log.Logger
 	}
 
 	// Monitor delivers general analytics of your telebot Bot to the ClickHouse storage.
 	Monitor struct {
-		db     *sql.DB
-		bus    chan interface{}
-		ticker *time.Ticker
 		wg     *sync.WaitGroup
 		flush  chan struct{}
 		halt   chan struct{}
+		db     *sql.DB
+		bus    chan interface{}
+		ticker *time.Ticker
+		logger *log.Logger
 	}
 
 	// Update represents a single update that will be recorded.
@@ -179,6 +183,7 @@ func New(config Config) (*Monitor, error) {
 		db:     db,
 		bus:    make(chan interface{}, config.BufferSize),
 		ticker: time.NewTicker(config.TickPeriod),
+		logger: config.Logger,
 	}
 
 	if err := m.createTables(); err != nil {

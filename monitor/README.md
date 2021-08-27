@@ -16,6 +16,9 @@ func main() {
 	// to the ClickHouse instance configured in monitor.Config.
 	bot.Use(mon.Middleware())
 
+	// All the errors will be logged as well.
+	bot.OnError = mon.OnError()
+
 	// This is an example of custom logging, in case you want
 	// to log and lately analyze any specific information,
 	// which will be associated with the context.
