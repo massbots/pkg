@@ -3,6 +3,7 @@ package monitor
 import (
 	"bytes"
 	"encoding/json"
+	"strings"
 	"time"
 
 	tele "gopkg.in/tucnak/telebot.v3"
@@ -41,7 +42,10 @@ func (m *Monitor) log(c tele.Context, level, msg string, payload ...M) {
 	}
 
 	if m.logger != nil {
-		v := []interface{}{msg}
+		v := []interface{}{
+			strings.ToUpper(level),
+			msg,
+		}
 		if data != nil {
 			var buf bytes.Buffer
 			json.Indent(&buf, data, "", "  ")
