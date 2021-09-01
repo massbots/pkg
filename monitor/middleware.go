@@ -72,6 +72,11 @@ func newUpdate(c tele.Context) (Update, bool) {
 	}
 
 	if clb := c.Callback(); clb != nil {
+		update.Text = clb.Unique
+		if clb.Data != "" {
+			update.Text += "|" + clb.Data
+		}
+
 		update.IsInline = clb.IsInline()
 		if update.IsInline {
 			update.MessageID = clb.MessageID
