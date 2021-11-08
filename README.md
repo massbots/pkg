@@ -17,3 +17,13 @@ b.Use(mon.Middleware())
 
 // And you're ready to go!
 ```
+
+## [Telegraph](https://github.com/massbots/telebot/tree/main/telegraph)
+
+`Telegraph` is a simple package to upload files to Telegraph.
+
+### Usage
+```go
+telegraph.UploadFile("image.png")
+telegraph.Upload(reader)
+```
