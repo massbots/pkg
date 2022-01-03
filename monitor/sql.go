@@ -18,7 +18,7 @@ const (
 		message_id   String,
 		text         String,
 		media        String,
-    	is_inline    UInt8,
+		is_inline    UInt8,
 		is_forwarded UInt8,
 		is_reply     UInt8,
 		was_edited   UInt8,

@@ -73,13 +73,13 @@ type (
 
 		// Text is a textual payload of the update.
 		//
-		//		Type				Content
-		//		message				text or caption
-		//		callback			data
-		//		inline_query		query
-		//		inline_result		query
-		//		shipping_query		payload
-		//		pre_checkout_query	payload
+		//		Type                Content
+		//		message             text or caption
+		//		callback            data
+		//		inline_query        query
+		//		inline_result       query
+		//		shipping_query      payload
+		//		pre_checkout_query  payload
 		//
 		Text string
 
@@ -124,7 +124,7 @@ type (
 		// Date is a date of the log record in YYYYMMDD format.
 		Date time.Time
 
-		// Time is a fill tim of the log record.
+		// Time is a full time of the log record.
 		Time time.Time
 
 		// UpdateID is an ID of the update, log record associates to.
