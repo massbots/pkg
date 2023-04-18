@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	tele "gopkg.in/tucnak/telebot.v3"
+	tele "gopkg.in/telebot.v3"
 )
 
 func (m *Monitor) Info(c tele.Context, msg string, payload ...M) {
