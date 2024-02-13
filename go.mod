@@ -1,4 +1,4 @@
-module go.massbots.xyz/telebot
+module go.massbots.xyz/pkg
 
 go 1.16
 
